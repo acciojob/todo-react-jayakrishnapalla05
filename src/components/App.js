@@ -1,44 +1,41 @@
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import './../styles/App.css';
 
 const App = () => {
-  const [todo,setTodo]=useState("");
-  const [list,setList]=useState([]);
+  let [todos,setTodos]=useState([])
+  let [newTodo,setNewTodo]=useState('')
 
-function addTodo()
-{
-  if(todo.trim() !=="")
-  {
-    setList([...list,todo]);
-    setTodo("");
+  function addTodo(){
+    if(newTodo.trim()!==''){
+      setTodos([...todos,newTodo]);
+      setNewTodo('');
+    }
   }
-}
 
-function removeTodo(i)
-{
-  let update=list.filter((element,index)=>{
-    return i!==index;
-  })
-  setList(update);
-}
-
+  function removeTodo(i){
+    let updatedTodos=todos.filter((element,index)=>{
+      return i!==index;
+    })
+    setTodos(updatedTodos)
+  }
 
   return (
     <div className="main">
-       <h1>To-Do-List</h1>
-       <input type="text" value={todo} onChange={(e)=>setTodo(e.target.value)}/>
-       <button type="button" onClick={addTodo}>Add Todo</button>
-       <ul>
+        {/* Do not remove the main div */}
+        <h1>To-D0 List</h1>
+        <input type="text" value={newTodo} onChange={(e)=>setNewTodo(e.target.value)}  />
+        <button onClick={addTodo}>Add Todo</button>
+        <ul>
         {
-          list.map((element,index)=>{
+          todos.map((element,index)=>(
             <li key={index}>
               <div>{element}</div>
-              <button onClick={()=>removeTodo(index)}>Remove</button>
+              <button onClick={()=>removeTodo(index)}></button>
             </li>
-          })
+          ))
         }
-       </ul>
+        </ul>
     </div>
   )
 }
